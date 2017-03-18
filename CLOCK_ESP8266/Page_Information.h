@@ -10,24 +10,20 @@ const char PAGE_Information[] PROGMEM = R"=====(
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="style.css" type="text/css" />
 <script src="microajax.js"></script> 
-<a href="/"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Сетевая информация</strong>
+<a href="/"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Мережева інформація</strong>
 <hr>
 <table border="0"  cellspacing="0" cellpadding="3" style="width:310px" >
 <tr><td align="right">SSID :</td><td><span id="x_ssid"></span></td></tr>
 <tr><td align="right">IP :</td><td><span id="x_ip"></span></td></tr>
-<tr><td align="right">Подсеть :</td><td><span id="x_netmask"></span></td></tr>
+<tr><td align="right">Підмережа :</td><td><span id="x_netmask"></span></td></tr>
 <tr><td align="right">Шлюз :</td><td><span id="x_gateway"></span></td></tr>
 <tr><td align="right">Mac :</td><td><span id="x_mac"></span></td></tr>
 
 
 
-<tr><td colspan="2" align="center"><a href="javascript:GetState()" class="btn btn--m btn--blue">Обновить</a></td></tr>
+<tr><td colspan="2" align="center"><a href="javascript:GetState()" class="btn btn--m btn--blue">Оновити</a></td></tr>
 </table>
 <br>
-<td align="center">Разработчик: Марсель Ахкамов</td><br>
-<td align="center">  danubanan@gmail.com</td><br>
-<td align="center">  musa.pro@yandex.ru</td><br>
-<a href="http://vk.com/danubanan" align="center" target="_blank">vk.com/danubanan</a><br>
 <script>
 
 function GetState()

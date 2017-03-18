@@ -6,35 +6,31 @@
 const char PAGE_NetworkConfiguration[] PROGMEM = R"=====(
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<a href="/"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Настройки сети</strong>
+<a href="/"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Налаштування мережі</strong>
 <hr>
-Настройка соединения с РОУТЕРОМ:<br>
+Налаштування з'єднання з роутером:<br>
 <form action="" method="get">
 <table border="0"  cellspacing="0" cellpadding="3" style="width:310px" >
 <tr><td align="right">SSID:</td><td><input type="text" id="ssid" name="ssid" value=""></td></tr>
 <tr><td align="right">Пароль:</td><td><input type="text" id="password" name="password" value=""></td></tr>
 <tr><td align="right">DHCP:</td><td><input type="checkbox" id="dhcp" name="dhcp"></td></tr>
 <tr><td align="right">IP:     </td><td><input type="text" id="ip_0" name="ip_0" size="3">.<input type="text" id="ip_1" name="ip_1" size="3">.<input type="text" id="ip_2" name="ip_2" size="3">.<input type="text" id="ip_3" name="ip_3" value="" size="3"></td></tr>
-<tr><td align="right">Подсеть:</td><td><input type="text" id="nm_0" name="nm_0" size="3">.<input type="text" id="nm_1" name="nm_1" size="3">.<input type="text" id="nm_2" name="nm_2" size="3">.<input type="text" id="nm_3" name="nm_3" size="3"></td></tr>
+<tr><td align="right">Підмережа:</td><td><input type="text" id="nm_0" name="nm_0" size="3">.<input type="text" id="nm_1" name="nm_1" size="3">.<input type="text" id="nm_2" name="nm_2" size="3">.<input type="text" id="nm_3" name="nm_3" size="3"></td></tr>
 <tr><td align="right">Шлюз:</td><td><input type="text" id="gw_0" name="gw_0" size="3">.<input type="text" id="gw_1" name="gw_1" size="3">.<input type="text" id="gw_2" name="gw_2" size="3">.<input type="text" id="gw_3" name="gw_3" size="3"></td></tr>
 <tr><td align="right">DNS:</td><td><input type="text" id="dns_0" name="dns_0" size="3">.<input type="text" id="dns_1" name="dns_1" size="3">.<input type="text" id="dns_2" name="dns_2" size="3">.<input type="text" id="dns_3" name="dns_3" size="3"></td></tr>
-<tr><td colspan="2" align="center"><input type="submit" style="width:150px" class="btn btn--m btn--blue" value="Сохранить"></td></tr>
+<tr><td colspan="2" align="center"><input type="submit" style="width:150px" class="btn btn--m btn--blue" value="Зберегти"></td></tr>
 </table>
 </form>
 <hr>
-<strong>Состояние соединения:</strong><div id="connectionstate">Нет данных</div>
+<strong>Стан з'єднання:</strong><div id="connectionstate">Немає даних</div>
 <hr>
 <strong>Сети:</strong><br>
 <table border="0"  cellspacing="3" style="width:310px" >
-<tr><td><div id="networks">Сканирование...</div></td></tr>
-<tr><td align="center"><a href="javascript:GetState()" style="width:150px" class="btn btn--m btn--blue">Обновить</a></td></tr>
+<tr><td><div id="networks">Сканування...</div></td></tr>
+<tr><td align="center"><a href="javascript:GetState()" style="width:150px" class="btn btn--m btn--blue">Оновити</a></td></tr>
 </table>
 
 <br>
-<td align="center">Разработчик: Марсель Ахкамов</td><br>
-<td align="center">  danubanan@gmail.com</td><br>
-<td align="center">  musa.pro@yandex.ru</td><br>
-<a href="http://vk.com/danubanan" align="center" target="_blank">vk.com/danubanan</a><br>
 <script>
 
 function GetState()
@@ -70,7 +66,7 @@ function load(e,t,n){if("js"==t){var a=document.createElement("script");a.src=e,
 
 const char PAGE_WaitAndReload[] PROGMEM = R"=====(
 <meta http-equiv="refresh" content="5; URL=config.html">
-Пожалуйста подождите.... Приминение конфигурации и перезапуск.
+Зачекайте, будь ласка .... Застосування конфігурації і перезапуск.
 )=====";
 
 
@@ -164,15 +160,15 @@ void send_network_configuration_values_html()
 void send_connection_state_values_html()
 {
 
-	String state = "НЕТ ДАННЫХ";
+	String state = "НЕМАЄ ДАНИХ";
 	String Networks = "";
 	if (WiFi.status() == 0) state = "Idle";
-	else if (WiFi.status() == 1) state = "НЕТ ДОСТУПНЫХ СЕТЕЙ";
-	else if (WiFi.status() == 2) state = "СКАНИРОВАНИЕ ЗАВЕРШЕНО";
-	else if (WiFi.status() == 3) state = "СОЕДИНЕНИЕ УСТАНОВЛЕНО";
-	else if (WiFi.status() == 4) state = "ОШИБКА СОЕДИНЕНИЯ";
-	else if (WiFi.status() == 5) state = "РАЗЪЕДИНЕНО";
-	else if (WiFi.status() == 6) state = "НЕТ СОЕДИНЕНИЯ";
+	else if (WiFi.status() == 1) state = "НЕМАЄ ДОСТУПНИХ МЕРЕЖ";
+	else if (WiFi.status() == 2) state = "Сканування ЗАВЕРШЕНО";
+	else if (WiFi.status() == 3) state = "З'ЄДНАННЯ ВСТАНОВЛЕНО";
+	else if (WiFi.status() == 4) state = "ПОМИЛКА З'ЄДНАННЯ";
+	else if (WiFi.status() == 5) state = "Роз'єднано";
+	else if (WiFi.status() == 6) state = "НЕМАЄ З'ЄДНАННЯ";
 
 
 
@@ -180,15 +176,15 @@ void send_connection_state_values_html()
 
 	 if (n == 0)
 	 {
-		 Networks = "<font color='#FF0000'>Нет доступных сетей!</font>";
+		 Networks = "<font color='#FF0000'>Жодної мережі не знайдено!</font>";
 	 }
 	else
     {
 	 
 		
-		Networks = "Доступно сетей: " +String(n) + "<br>";
+		Networks = "Доступно мереж: " +String(n) + "<br>";
 		Networks += "<table border='0' cellspacing='0' cellpadding='3'>";
-		Networks += "<tr bgcolor='#DDDDDD' ><td><strong>Имя</strong></td><td><strong>Качество</strong></td><td><strong>Защита</strong></td><tr>";
+		Networks += "<tr bgcolor='#DDDDDD' ><td><strong>Назва</strong></td><td><strong>Якість</strong></td><td><strong>Захист</strong></td><tr>";
 		for (int i = 0; i < n; ++i)
 		{
 			int quality=0;

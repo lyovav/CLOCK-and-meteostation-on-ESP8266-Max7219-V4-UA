@@ -2,13 +2,13 @@
 const char PAGE_NTPConfiguration[] PROGMEM = R"=====(
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<a href="/"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Настройки NTP</strong>
+<a href="/"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Налаштування NTP</strong>
 <hr>
 <form action="" method="get">
 <table border="0"  cellspacing="0" cellpadding="3" >
 <tr><td align="right">NTP сервер:</td><td><input type="text" id="ntpserver" name="ntpserver" maxlength="172" value=""></td></tr>
-<tr><td align="right">Обновлять каждые:</td><td><input type="text" id="update" name="update" size="3"maxlength="6" value=""> минут (0=запрет)</td></tr>
-<tr><td>Час. пояс</td><td>
+<tr><td align="right">Оновляти кожні:</td><td><input type="text" id="update" name="update" size="3"maxlength="6" value=""> хвилин (0=не оновляти)</td></tr>
+<tr><td>Час. зона</td><td>
 <select  id="tz" name="tz">
   <option value="-120">(GMT-12:00)</option>
   <option value="-110">(GMT-11:00)</option>
@@ -46,15 +46,11 @@ const char PAGE_NTPConfiguration[] PROGMEM = R"=====(
   <option value="130">(GMT+13:00)</option>
 </select>
 </td></tr>
-<tr><td align="right">Летнее время:</td><td><input type="checkbox" id="dst" name="dst"></td></tr>
-<tr><td colspan="2" align="center"><input type="submit" style="width:150px" class="btn btn--m btn--blue" value="Сохранить"></td></tr>
+<tr><td align="right">Увімкнути перехід на літній час:</td><td><input type="checkbox" id="dst" name="dst"></td></tr>
+<tr><td colspan="2" align="center"><input type="submit" style="width:150px" class="btn btn--m btn--blue" value="Зберегти"></td></tr>
 </table>
 </form>
 <br>
-<td align="center">Разработчик: Марсель Ахкамов</td><br>
-<td align="center">  danubanan@gmail.com</td><br>
-<td align="center">  musa.pro@yandex.ru</td><br>
-<a href="http://vk.com/danubanan" align="center" target="_blank">vk.com/danubanan</a><br>
 <script>
   
 

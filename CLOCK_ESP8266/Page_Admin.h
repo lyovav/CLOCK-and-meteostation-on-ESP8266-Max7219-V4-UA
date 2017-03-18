@@ -7,19 +7,16 @@
 const char PAGE_AdminMainPage[] PROGMEM = R"=====(
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<strong>Управление устройством</strong>
+<strong>Управління пристроєм</strong>
 <hr>
-<a href="config.html" style="width:250px" class="btn btn--m btn--blue" >Настройки сети</a><br>
-<a href="general.html" style="width:250px" class="btn btn--m btn--blue" >Настройки погоды</a><br>
-<a href="ntp.html"   style="width:250px"  class="btn btn--m btn--blue" >Настройки NTP</a><br>
-<a href="info.html"   style="width:250px"  class="btn btn--m btn--blue" >Сетевая информация</a><br>
-
+<a href="config.html" style="width:250px" class="btn btn--m btn--blue" >Налаштування мережі</a><br>
+<a href="general.html" style="width:250px" class="btn btn--m btn--blue" >Налаштування погоди</a><br>
+<a href="ntp.html"   style="width:250px"  class="btn btn--m btn--blue" >Налаштування NTP</a><br>
+<a href="info.html"   style="width:250px"  class="btn btn--m btn--blue" >Мережева інформація</a><br>
 <br>
-<td align="center">Рекомендую настраивать по порядку!</td><br><br>
-<td align="center">Разработчик: Марсель Ахкамов</td><br>
-<td align="center">  danubanan@gmail.com</td><br>
-<td align="center">  musa.pro@yandex.ru</td><br>
-<a href="http://vk.com/danubanan" align="center" target="_blank">vk.com/danubanan</a><br>
+<br>
+<strong>WiFi Clock v4</strong>
+<br>
 <script>
 window.onload = function ()
 {
