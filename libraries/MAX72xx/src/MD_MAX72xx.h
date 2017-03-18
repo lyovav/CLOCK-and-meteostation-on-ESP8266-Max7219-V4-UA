@@ -268,7 +268,7 @@ enough current for the number of connected modules.
 // Defined values that are used throughout the library to define physical limits
 #define	ROW_SIZE	8		///< The size in pixels of a row in the device LED matrix array
 #define COL_SIZE  8		///< The size in pixels of a column in the device LED matrix array
-#define	MAX_INTENSITY	0x5	///< The maximum intensity value that can be set for a LED array
+#define	MAX_INTENSITY	0x3	///< The maximum intensity value that can be set for a LED array
 #define	MAX_SCANLIMIT	7	  ///< The maximum scan limit value that can be set for the devices
 
 /**
