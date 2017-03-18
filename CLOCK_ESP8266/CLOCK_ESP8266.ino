@@ -164,7 +164,7 @@ String chipID;
 void setup() {
   P.begin();
   P.setInvert(false);
-  P.setFont(fontBG);
+  P.setFont(fontRU);
 
   bool CFG_saved = false;
   int WIFI_connected = false;
@@ -447,10 +447,10 @@ void getTime(){
 
     y = String (DateTime.year);
      
-    if (DateTime.month == 1) mon = "сiчня";
+    if (DateTime.month == 1) mon = "січня";
     if (DateTime.month == 2) mon = "лютого";
     if (DateTime.month == 3) mon = "березня";
-    if (DateTime.month == 4) mon = "квiтня";
+    if (DateTime.month == 4) mon = "квітня";
     if (DateTime.month == 5) mon = "травня";
     if (DateTime.month == 6) mon = "червня";
     if (DateTime.month == 7) mon = "липня";
@@ -460,13 +460,13 @@ void getTime(){
     if (DateTime.month == 11) mon = "листопада";
     if (DateTime.month == 12) mon = "грудня";
 
-    if (DateTime.wday == 2) wd = "Понедiлок";
-    if (DateTime.wday == 3) wd = "Вiвторок";
+    if (DateTime.wday == 2) wd = "Понеділок";
+    if (DateTime.wday == 3) wd = "Вівторок";
     if (DateTime.wday == 4) wd = "Середа";
     if (DateTime.wday == 5) wd = "Четвер";
     if (DateTime.wday == 6) wd = "П'ятниця";
     if (DateTime.wday == 7) wd = "Субота";
-    if (DateTime.wday == 1) wd = "Недiля";
+    if (DateTime.wday == 1) wd = "Неділя";
     
 }
 //==========================================================
@@ -609,25 +609,25 @@ void getWeatherData()
   windDeg = root["wind"]["deg"];
   clouds = root["clouds"]["all"];
   String deg = String(char('~'+25));
-  weatherString = "На дворi зара " + String(temp,0)+ "\xB0"+"C ";
+  weatherString = "На дворі зара " + String(temp,0)+ "\xB0"+"C ";
   weatherString += weatherDescription;
-  weatherString += " Вологiсть " + String(humidity) + "% ";
+  weatherString += " Вологість " + String(humidity) + "% ";
   weatherString += "Атмосферний тиск " + String(pressure/1.3332239,0) + " мм ";
-  weatherString += "Хмарнiсть " + String(clouds) + "% ";
+  weatherString += "Хмарність " + String(clouds) + "% ";
 
 String windDegString;
 
-if (windDeg>=345 || windDeg<=22) windDegString = "Пiвнiчний";
-if (windDeg>=23 && windDeg<=68) windDegString = "Пiвнiчно-схiдний";
-if (windDeg>=69 && windDeg<=114) windDegString = "Схiдний";
-if (windDeg>=115 && windDeg<=160) windDegString = "Пiвденно-схiдний";
-if (windDeg>=161 && windDeg<=206) windDegString = "Пiвденний";
-if (windDeg>=207 && windDeg<=252) windDegString = "Пiвденно-захiдний";
-if (windDeg>=253 && windDeg<=298) windDegString = "Захiдний";
-if (windDeg>=299 && windDeg<=344) windDegString = "Пiвнiчно-захiдний";
+if (windDeg>=345 || windDeg<=22) windDegString = "Північний";
+if (windDeg>=23 && windDeg<=68) windDegString = "Північно-східний";
+if (windDeg>=69 && windDeg<=114) windDegString = "Східний";
+if (windDeg>=115 && windDeg<=160) windDegString = "Південно-східний";
+if (windDeg>=161 && windDeg<=206) windDegString = "Південний";
+if (windDeg>=207 && windDeg<=252) windDegString = "Південно-західний";
+if (windDeg>=253 && windDeg<=298) windDegString = "Західний";
+if (windDeg>=299 && windDeg<=344) windDegString = "Північно-західний";
 
 
-  weatherString += "Вiтер " + windDegString + " " + String(windSpeed,1) + " м/с";
+  weatherString += "Вітер " + windDegString + " " + String(windSpeed,1) + " м/с";
 
 
 
@@ -692,16 +692,16 @@ void getWeatherDataz()
   
   String windDegString;
 
-if (windDeg>=345 || windDeg<=22) windDegString = "Пiвнiчний";
-if (wDeg>=23 && wDeg<=68) windDegString = "Пiвнiчно-схiдний";
-if (wDeg>=69 && wDeg<=114) windDegString = "Схiдний";
-if (wDeg>=115 && wDeg<=160) windDegString = "Пiвденно-схiдний";
-if (wDeg>=161 && wDeg<=206) windDegString = "Пiвденний";
-if (wDeg>=207 && wDeg<=252) windDegString = "Пiвденно-захiдний";
-if (wDeg>=253 && wDeg<=298) windDegString = "Захiдний";
-if (wDeg>=299 && wDeg<=344) windDegString = "Пiвнiчно-захiдний";
+if (windDeg>=345 || windDeg<=22) windDegString = "Північний";
+if (wDeg>=23 && wDeg<=68) windDegString = "Північно-східний";
+if (wDeg>=69 && wDeg<=114) windDegString = "Східний";
+if (wDeg>=115 && wDeg<=160) windDegString = "Південно-східний";
+if (wDeg>=161 && wDeg<=206) windDegString = "Південний";
+if (wDeg>=207 && wDeg<=252) windDegString = "Південно-західний";
+if (wDeg>=253 && wDeg<=298) windDegString = "Західний";
+if (wDeg>=299 && wDeg<=344) windDegString = "Північно-західний";
 
-  weatherStringz1 = "Вiтер " + windDegString + " " + String(wSpeed,1) + " м/с";
+  weatherStringz1 = "Вітер " + windDegString + " " + String(wSpeed,1) + " м/с";
 }
 // =======================================================================
   void tvoday(String line){
