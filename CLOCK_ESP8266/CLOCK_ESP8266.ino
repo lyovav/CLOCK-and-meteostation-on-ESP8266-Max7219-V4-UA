@@ -222,7 +222,7 @@ void setup() {
     config.Update_Time_Via_NTP_Every =  10;
     config.timeZone = 3;
     config.isDayLightSaving = true;
-    config.DeviceName = "API ключь";
+    config.DeviceName = "API ключ";
     config.email = "cityID";
     WiFi.mode(WIFI_AP);  
     WiFi.softAP(config.ssid.c_str());
