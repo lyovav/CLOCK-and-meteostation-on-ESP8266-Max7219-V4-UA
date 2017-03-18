@@ -133,6 +133,9 @@ String weatherLocation = "";
 String country;
 int humidity;
 int pressure;
+float pressureFIX;
+
+
 float temp;
 String tempz;
 
@@ -548,7 +551,7 @@ void scrollIP(){
 }
 //==========================================================
 void scrollConnect(){
-  Text = "Вiдсутне пiдключення до WIFI. Пiдключiтся WiFi-Clock-v4 до та наберiть у браузерi 192.168.4.1" ;
+  Text = "Вiдсутне пiдключення до WIFI. Пiдключiтся до WiFi-Clock-v4  та наберiть у браузерi 192.168.4.1" ;
   if  (P.displayAnimate()){
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 40);
@@ -605,6 +608,7 @@ void getWeatherData()
   temp = root["main"]["temp"];
   humidity = root["main"]["humidity"];
   pressure = root["main"]["pressure"];
+  pressureFIX= (pressure/1.3332239)-23;
   windSpeed = root["wind"]["speed"];
   windDeg = root["wind"]["deg"];
   clouds = root["clouds"]["all"];
@@ -612,7 +616,7 @@ void getWeatherData()
   weatherString = "На дворі зара " + String(temp,0)+ "\xB0"+"C ";
   weatherString += weatherDescription;
   weatherString += " Вологість " + String(humidity) + "% ";
-  weatherString += "Атмосферний тиск " + String(pressure/1.3332239,0) + " мм ";
+  weatherString += "Атмосферний тиск " + String(pressureFIX,0) + " мм ";
   weatherString += "Хмарність " + String(clouds) + "% ";
 
 String windDegString;
