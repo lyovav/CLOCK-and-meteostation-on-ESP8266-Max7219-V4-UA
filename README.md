@@ -1,17 +1,22 @@
-﻿
 
 
-WIFI часы на светодиодной матрице MAX7219 с функцией отображения погоды
-Взято у 
-Автора и Разработчика: Марсель Ахкамов
+Українізована версія CLOCK ESP8266 + MAX72xx V4-UKR
+
+Підключення:
+NodeMCU - Matrix
+D7-GPIO13 -> DIN
+D5-GPIO14 -> Clk
+D8-GPIO0 -> DIN
+VU -> VCC
+GND -> GND
+
+Ідея та розробник:
+Марсель Ахкамов
 danubanan@gmail.com
 musa.pro@yandex.ru
 vk.com/danubanan
 https://www.youtube.com/watch?v=23Fk5X38x9E
 
-
-18.03.2017
-Начата работа по украинизации проэкта.
 
 
 
