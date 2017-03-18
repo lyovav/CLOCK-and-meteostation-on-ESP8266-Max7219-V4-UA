@@ -211,7 +211,7 @@ void setup() {
     // DEFAULT CONFIG
     scrollConnect();
     Serial.println("Setting AP mode default parameters");
-    config.ssid = "Clockv4";       // SSID of access point
+    config.ssid = "WiFi-Clock-v4";       // SSID of access point
     config.password = "" ;   // password of access point
     config.dhcp = true;
     config.IP[0] = 192; config.IP[1] = 168; config.IP[2] = 1; config.IP[3] = 100;
@@ -548,7 +548,7 @@ void scrollIP(){
 }
 //==========================================================
 void scrollConnect(){
-  Text = "Вiдсутне пiдключення до WIFI. Пiдключiтся Clockv4 до та наберiть у браузерi 192.168.4.1" ;
+  Text = "Вiдсутне пiдключення до WIFI. Пiдключiтся WiFi-Clock-v4 до та наберiть у браузерi 192.168.4.1" ;
   if  (P.displayAnimate()){
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 40);
