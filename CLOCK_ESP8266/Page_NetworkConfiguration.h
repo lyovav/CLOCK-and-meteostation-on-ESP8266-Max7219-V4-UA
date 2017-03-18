@@ -24,7 +24,7 @@ const char PAGE_NetworkConfiguration[] PROGMEM = R"=====(
 <hr>
 <strong>Стан з'єднання:</strong><div id="connectionstate">Немає даних</div>
 <hr>
-<strong>Сети:</strong><br>
+<strong>Мережі:</strong><br>
 <table border="0"  cellspacing="3" style="width:310px" >
 <tr><td><div id="networks">Сканування...</div></td></tr>
 <tr><td align="center"><a href="javascript:GetState()" style="width:150px" class="btn btn--m btn--blue">Оновити</a></td></tr>
