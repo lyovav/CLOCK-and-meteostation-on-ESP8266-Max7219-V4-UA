@@ -608,11 +608,15 @@ void getWeatherData()
   temp = root["main"]["temp"];
   humidity = root["main"]["humidity"];
   pressure = root["main"]["pressure"];
-  pressureFIX= (pressure/1.3332239)-23;
+  pressureFIX= (pressure/1.3332239)-24;
   windSpeed = root["wind"]["speed"];
   windDeg = root["wind"]["deg"];
   clouds = root["clouds"]["all"];
   String deg = String(char('~'+25));
+
+if (weatherDescription == "shower sleet") weatherDescription = "дощ зi снiгом";
+if (weatherDescription == "light shower snow") weatherDescription = "слабий снігопад";
+  
   weatherString = "На дворі зара " + String(temp,0)+ "\xB0"+"C ";
   weatherString += weatherDescription;
   weatherString += " Вологість " + String(humidity) + "% ";
