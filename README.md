@@ -1,6 +1,8 @@
-
+﻿
 
 Українізована версія CLOCK ESP8266 + MAX72xx V4-UKR
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mDv6FePRmC8" frameborder="0" allowfullscreen></iframe>
 
 Підключення:
 NodeMCU - Matrix
