@@ -4,7 +4,7 @@
 
 28.03.2017 Добавлено меню налаштування яскравості.
 
-https://www.youtube.com/embed/mDv6FePRmC8
+https://www.youtube.com/watch?v=mDv6FePRmC8
 
 Підключення:
 NodeMCU - Matrix
