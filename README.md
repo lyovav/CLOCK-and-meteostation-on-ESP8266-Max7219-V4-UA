@@ -2,6 +2,8 @@
 
 Українізована версія CLOCK ESP8266 + MAX72xx V4-UKR
 
+28.03.2017 Добавлено меню налаштування яскравості.
+
 https://www.youtube.com/embed/mDv6FePRmC8
 
 Підключення:
