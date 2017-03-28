@@ -12,6 +12,7 @@ const char PAGE_AdminMainPage[] PROGMEM = R"=====(
 <a href="config.html" style="width:250px" class="btn btn--m btn--blue" >Налаштування мережі</a><br>
 <a href="general.html" style="width:250px" class="btn btn--m btn--blue" >Налаштування погоди</a><br>
 <a href="ntp.html"   style="width:250px"  class="btn btn--m btn--blue" >Налаштування NTP</a><br>
+<a href="brightnes.html"   style="width:250px"  class="btn btn--m btn--blue" >Налаштування екрану</a><br>
 <a href="info.html"   style="width:250px"  class="btn btn--m btn--blue" >Мережева інформація</a><br>
 <br>
 <br>
