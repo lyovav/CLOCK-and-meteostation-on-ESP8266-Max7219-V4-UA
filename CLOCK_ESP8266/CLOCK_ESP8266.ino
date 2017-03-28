@@ -399,7 +399,7 @@ t.update();
    }
    
    if (disp ==2){
-   Text = wd + " " + d + " " + mon + " " + y;
+   Text = " Сьогодні " + wd + " " + d + " " + mon + " " + y;
    scrollText();
    }
 
