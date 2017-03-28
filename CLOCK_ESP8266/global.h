@@ -30,15 +30,7 @@ struct strConfig {
   String ntpServerName;                 // up to 32 Byte - EEPROM 128
   String DeviceName;                    // up to 32 Byte - EEPROM 160
   String email;                         // up to 32 Byte - EEPROM 192
-  //vb9***********************************************************************************************************
-  //Сохраняем яркость
-  byte  textBrightnessD;              // 1 Byte - EEPROM 234
-  byte  textBrightnessN;              // 1 Byte - EEPROM 235
-  byte  TimeBrightnessD;              // 1 Byte - EEPROM 236
-  byte  TimeBrightnessN;              // 1 Byte - EEPROM 237
-  //vb9***********************************************************************************************************
 
-  
   // Application Settings here... from EEPROM 192 up to 511 (0 - 511)
   
 } config;
@@ -160,12 +152,7 @@ void WriteConfig(){
   EEPROM.write(231, config.DNS[1]);
   EEPROM.write(232, config.DNS[2]);
   EEPROM.write(233, config.DNS[3]);
-//vb9***********************************************************************************************************
-  EEPROM.write(234, config.textBrightnessD);
-  EEPROM.write(235, config.textBrightnessN);
-  EEPROM.write(236, config.TimeBrightnessD);
-  EEPROM.write(237, config.TimeBrightnessN);
-//vb9***********************************************************************************************************
+
   WriteStringToEEPROM(64, config.ssid);
   WriteStringToEEPROM(96, config.password);
   WriteStringToEEPROM(128, config.ntpServerName);
@@ -203,12 +190,6 @@ boolean ReadConfig(){
     config.DNS[1] = EEPROM.read(231);
     config.DNS[2] = EEPROM.read(232);
     config.DNS[3] = EEPROM.read(233);
-    //vb9***********************************************************************************************************
-    config.textBrightnessD = EEPROM.read(234);
-    config.textBrightnessN = EEPROM.read(235);
-    config.TimeBrightnessD = EEPROM.read(236);
-    config.TimeBrightnessN = EEPROM.read(237);
-    //vb9***********************************************************************************************************
     config.ssid = ReadStringFromEEPROM(64);
     config.password = ReadStringFromEEPROM(96);
     config.ntpServerName = ReadStringFromEEPROM(128);
@@ -236,7 +217,7 @@ void printConfig(){
   Serial.printf("DHCP:%d\n", config.dhcp);
   Serial.printf("DayLight:%d\n", config.isDayLightSaving);
 
-  Serial.printf("NTP update every %ld min\n", config.Update_Time_Via_NTP_Every); // 4 Byte
+  Serial.printf("NTP update every %ld sec\n", config.Update_Time_Via_NTP_Every); // 4 Byte
   Serial.printf("Timezone %ld\n", config.timeZone); // 4 Byte
 
   Serial.printf("IP:%d.%d.%d.%d\n", config.IP[0],config.IP[1],config.IP[2],config.IP[3]);
@@ -252,7 +233,6 @@ void printConfig(){
   
   Serial.printf("Email:%s\n", config.email.c_str());
 
-  
     // Application Settings here... from EEPROM 192 up to 511 (0 - 511)
 
 }
