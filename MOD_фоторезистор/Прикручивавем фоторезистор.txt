@@ -1,7 +1,7 @@
 
-int photocellPin = A0; // сенсор и понижающий резистор 10 кОм подключены к a0
-int photocellReading; // считываем аналоговые значения с делителя сенсора
-int LEDbrightness; // 1 - фоторезистор закрыт 15 - полностью освещен
+int photocellPin = A0; // СЃРµРЅСЃРѕСЂ Рё РїРѕРЅРёР¶Р°СЋС‰РёР№ СЂРµР·РёСЃС‚РѕСЂ 10 РєРћРј РїРѕРґРєР»СЋС‡РµРЅС‹ Рє a0
+int photocellReading; // СЃС‡РёС‚С‹РІР°РµРј Р°РЅР°Р»РѕРіРѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ СЃ РґРµР»РёС‚РµР»СЏ СЃРµРЅСЃРѕСЂР°
+int LEDbrightness; // 1 - С„РѕС‚РѕСЂРµР·РёСЃС‚РѕСЂ Р·Р°РєСЂС‹С‚ 15 - РїРѕР»РЅРѕСЃС‚СЊСЋ РѕСЃРІРµС‰РµРЅ
 
 void setup(void) {
 Serial.begin(9600);
@@ -9,9 +9,9 @@ Serial.begin(9600);
 void loop(void) {
 photocellReading = analogRead(photocellPin);
 Serial.print("Analog reading = ");
-Serial.println(photocellReading); // аналоговые значения с сенсора
+Serial.println(photocellReading); // Р°РЅР°Р»РѕРіРѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ СЃ СЃРµРЅСЃРѕСЂР°
 photocellReading = 1023 - photocellReading;
-//теперь мы должны преобразовать диапазон 0-1023 в 15-0
+//С‚РµРїРµСЂСЊ РјС‹ РґРѕР»Р¶РЅС‹ РїСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РґРёР°РїР°Р·РѕРЅ 0-1023 РІ 15-0
 LEDbrightness = map(photocellReading, 0, 1023, 15, 0);
 Serial.println(LEDbrightness);
 delay(100);
