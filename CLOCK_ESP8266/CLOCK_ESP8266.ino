@@ -18,9 +18,15 @@
 #include "Fonts.h"
 
 #define  MAX_DEVICES 4 
+
+
+
 #define CLK_PIN     D5 // or SCK
 #define DATA_PIN    D7 // or MOSI
 #define CS_PIN      D8 // or SS
+
+
+
 
 
 MD_Parola P = MD_Parola(CS_PIN, MAX_DEVICES);
@@ -76,7 +82,6 @@ Timer t;
 #include "Page_Style.css.h"
 #include "Page_NTPSettings.h"
 #include "Page_Information.h"
-#include "Page_Brightnes.h"
 #include "Page_General.h"
 #include "Page_NetworkConfiguration.h"
 
@@ -129,6 +134,8 @@ String country;
 int humidity;
 int pressure;
 float pressureFIX;
+
+
 float temp;
 String tempz;
 
@@ -161,7 +168,7 @@ void setup() {
   P.begin();
   P.setInvert(false);
   P.setFont(fontRU);
-  
+
   bool CFG_saved = false;
   int WIFI_connected = false;
   Serial.begin(115200);
@@ -199,7 +206,7 @@ void setup() {
         Serial.println("Connection Failed! activating to AP mode...");
         Serial.print("Wifi ip:");Serial.println(WiFi.localIP());
         Serial.print("Email:");Serial.println(config.email.c_str());
-
+        
       }
   }
 
@@ -214,30 +221,18 @@ void setup() {
     config.Netmask[0] = 255; config.Netmask[1] = 255; config.Netmask[2] = 255; config.Netmask[3] = 0;
     config.Gateway[0] = 192; config.Gateway[1] = 168; config.Gateway[2] = 1; config.Gateway[3] = 1;
     config.DNS[0] = 192; config.DNS[1] = 168; config.DNS[2] = 1; config.DNS[3] = 1;
-    config.ntpServerName = "pool.ntp.org"; // to be adjusted to PT ntp.ist.utl.pt
+    config.ntpServerName = "0.ru.pool.ntp.org"; // to be adjusted to PT ntp.ist.utl.pt
     config.Update_Time_Via_NTP_Every =  10;
     config.timeZone = 3;
     config.isDayLightSaving = true;
     config.DeviceName = "API ключ";
     config.email = "cityID";
- //vb9***********************************************************************************************************
-    config.textBrightnessD = 8;
-    config.textBrightnessN = 0;
-    config.TimeBrightnessD = 9;
-    config.TimeBrightnessN = 21;
- //vb9***********************************************************************************************************
     WiFi.mode(WIFI_AP);  
     WiFi.softAP(config.ssid.c_str());
     Serial.print("Wifi ip:");Serial.println(WiFi.softAPIP());
 
    }
    
- //vb9***********************************************************************************************************
-   // Установка яркости дисплея НОЧЬ (при случае перезапуска ночью) - делаем после чтения данных из памяти
-   Brightnes();
- //vb9***********************************************************************************************************
-
-
 
     // Start HTTP Server for configuration
     server.on ( "/", []() {
@@ -252,23 +247,16 @@ void setup() {
   
     // Network config
     server.on ( "/config.html", send_network_configuration_html );
-    
     // Info Page
-    server.on ( "/info.html", []() {     
+    server.on ( "/info.html", []() {
       Serial.println("info.html");
       server.send_P ( 200, "text/html", PAGE_Information );
     }  );
-
-    
     server.on ( "/ntp.html", send_NTP_configuration_html  );
-    
-    // brightnes config
-    server.on ( "/brightnes.html", send_brightnes_configuration_html  );  // brightnes
-    
+  
+    //server.on ( "/appl.html", send_application_configuration_html  );
     server.on ( "/general.html", send_general_html  );
     //  server.on ( "/example.html", []() { server.send_P ( 200, "text/html", PAGE_EXAMPLE );  } );
-    
-    
     server.on ( "/style.css", []() {
       Serial.println("style.css");
       server.send_P ( 200, "text/plain", PAGE_Style_css );
@@ -277,13 +265,11 @@ void setup() {
       Serial.println("microajax.js");
       server.send_P ( 200, "text/plain", PAGE_microajax_js );
     } );
-
-    
     server.on ( "/admin/values", send_network_configuration_values_html );
     server.on ( "/admin/connectionstate", send_connection_state_values_html );
     server.on ( "/admin/infovalues", send_information_values_html );
     server.on ( "/admin/ntpvalues", send_NTP_configuration_values_html );
-    server.on ( "/admin/brightnesvalues", send_brightnes_configuration_values_html ); // brightnes
+    //server.on ( "/admin/applvalues", send_application_configuration_values_html );
     server.on ( "/admin/generalvalues", send_general_configuration_values_html);
     server.on ( "/admin/devicename",     send_devicename_value_html);
   
@@ -339,7 +325,8 @@ String(WiFi.localIP()[1]) + "." +
 String(WiFi.localIP()[2]) + "." +
 String(WiFi.localIP()[3])
 );
-        
+
+
 {
 
 
@@ -353,14 +340,15 @@ String(WiFi.localIP()[3])
 t.every(1000, ISRsecondTick);
 
 if  (WiFi.status() == WL_CONNECTED) {
+getTime();
 scrollIP();
 
- //   t.every(10000, getTime);
-  }    
+  //  t.every(10000, getTime);
+
+  }  
+   getTime();
    getWeatherData();
    getWeatherDataz();
-   getTime();
-   getTime();
 weatherKey = config.DeviceName.c_str();
 cityID = config.email.c_str();
 }
@@ -379,27 +367,30 @@ void loop() {
 
   //**** Normal Skecth code here ... 
 t.update();
-  
   if (lp >= 10) lp=0;
 
    if (disp ==0){
     if (lp==0){
-       getTime();
        getWeatherData();
        getWeatherDataz();
     }
    getTime();
    disp=1;
    lp++;
-   }   
+   }
+   
    if (disp ==1){
    rnd = random(0, ARRAY_SIZE(catalog));
    Text = h + ":" + m;
-    displayInfo();
+   displayInfo();
    }
    
    if (disp ==2){
+<<<<<<< HEAD
    Text = "Сьогодні " + wd + " " + d + " " + mon + " " + y;
+=======
+   Text = " Сьогодні " + wd + " " + d + " " + mon + " " + y;
+>>>>>>> parent of f2da871... Переклад меню яскоавості в залежності від часу доби
    scrollText();
    }
 
@@ -424,7 +415,7 @@ t.update();
    Text = weatherStringz + " " + weatherStringz1;
    scrollText2();
    }
-  
+   
   //============длительное нажатие кнопки форматирует EEPROM
 int buttonstate=digitalRead(buttonPin);
 if(buttonstate==HIGH) eventTime=millis();
@@ -454,9 +445,7 @@ void ResetAll(){
 
 //==========================================================
 void getTime(){
-    getNTPtime();
-    delay(1000);
-    getNTPtime();
+  getNTPtime();
     h = String (DateTime.hour/10) + String (DateTime.hour%10);
     m = String (DateTime.minute/10) + String (DateTime.minute%10);
     s = String (DateTime.second/10 + String (DateTime.second%10));
@@ -486,24 +475,8 @@ void getTime(){
     if (DateTime.wday == 7) wd = "Субота";
     if (DateTime.wday == 1) wd = "Неділя";
     
-    
-    Brightnes();
 }
-
-//***********************************************************************************************************
-void Brightnes(){
-    // Яркость дисплея
-    if (DateTime.hour >= config.TimeBrightnessD && DateTime.hour < config.TimeBrightnessN) P.setIntensity(config.textBrightnessD);
-    else P.setIntensity(config.textBrightnessN);
-    // проверка на COM порт
-    Serial.print("Brightness EEPROM Day. = "); Serial.println(config.textBrightnessD);Serial.print(" Start. = "); Serial.println(config.TimeBrightnessD);
-    Serial.print("Brightness EEPROM Night. = "); Serial.println(config.textBrightnessN);Serial.print(" Start. = "); Serial.println(config.TimeBrightnessN);
-    Serial.print("HOUR. = ");Serial.println(DateTime.hour);
-   
-}
-//***********************************************************************************************************
-
-
+//==========================================================
 void displayInfo(){
     if (P.displayAnimate()){
     utf8rus(Text).toCharArray(buf, 256);
@@ -575,10 +548,8 @@ void scrollIP(){
   
     Text = "Ваш IP: "+ipstring;
   if  (P.displayAnimate()){
-    getTime();
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 60);
-    getTime();
   }
 
 }
@@ -646,7 +617,7 @@ void getWeatherData()
   windDeg = root["wind"]["deg"];
   clouds = root["clouds"]["all"];
   String deg = String(char('~'+25));
-  
+
 if (weatherDescription == "shower sleet") weatherDescription = "дощ зi снiгом";
 if (weatherDescription == "light shower snow") weatherDescription = "слабий снігопад";
   
