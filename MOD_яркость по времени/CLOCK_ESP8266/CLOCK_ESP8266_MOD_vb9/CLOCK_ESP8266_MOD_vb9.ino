@@ -1,5 +1,5 @@
 /*
- * Резистор подтягиваем к минусу, фоторезистор к плюсу, вторые концы соеденяем и подтягиваем к А0 
+ * 
  * 
  */
 #include <ESP8266WiFi.h>
@@ -97,10 +97,9 @@ os_timer_t myTimer;
 #define LED_PIN 2
 #define buttonPin 0
 
+#define analogPIN A0
 
-int photocellPin = A0; // сенсор и понижающий резистор 10 кОм подключены к a0
-int photocellReading; // считываем аналоговые значения с делителя сенсора
-int LEDbrightness; // 1 - фоторезистор закрыт 15 - полностью освещен
+
 
 String weatherKey;
 String ipstring;
@@ -221,19 +220,23 @@ void setup() {
     config.isDayLightSaving = true;
     config.DeviceName = "API ключ";
     config.email = "cityID";
- 
-    config.textBrightnessD = 15;
+ //vb9***********************************************************************************************************
+    config.textBrightnessD = 8;
     config.textBrightnessN = 0;
-
+    config.TimeBrightnessD = 9;
+    config.TimeBrightnessN = 21;
+ //vb9***********************************************************************************************************
     WiFi.mode(WIFI_AP);  
     WiFi.softAP(config.ssid.c_str());
     Serial.print("Wifi ip:");Serial.println(WiFi.softAPIP());
 
-    getTime();
-
    }
- 
    
+ //vb9***********************************************************************************************************
+   // Установка яркости дисплея НОЧЬ (при случае перезапуска ночью) - делаем после чтения данных из памяти
+   Brightnes();
+ //vb9***********************************************************************************************************
+
 
 
     // Start HTTP Server for configuration
@@ -261,8 +264,7 @@ void setup() {
     
     // brightnes config
     server.on ( "/brightnes.html", send_brightnes_configuration_html  );  // brightnes
-
-   
+    
     server.on ( "/general.html", send_general_html  );
     //  server.on ( "/example.html", []() { server.send_P ( 200, "text/html", PAGE_EXAMPLE );  } );
     
@@ -344,7 +346,7 @@ String(WiFi.localIP()[3])
   for (uint8_t i=0; i<ARRAY_SIZE(catalog); i++)
   {
     catalog[i].speed *= P.getSpeed();
-    catalog[i].pause *= 100;
+    catalog[i].pause *= 500;
   }
 }
 
@@ -358,6 +360,7 @@ scrollIP();
    getWeatherData();
    getWeatherDataz();
    getTime();
+   getTime();
 weatherKey = config.DeviceName.c_str();
 cityID = config.email.c_str();
 }
@@ -365,7 +368,6 @@ cityID = config.email.c_str();
 // the loop function runs over and over again forever
 void loop() {
   
-   
   // OTA request handling
   ArduinoOTA.handle();
 
@@ -375,11 +377,7 @@ void loop() {
    //  feed de DOG :) 
    customWatchdog = millis();
 
-//delay(10);
-//  Brightnes(); //auto Brightnes
-
   //**** Normal Skecth code here ... 
-  
 t.update();
   
   if (lp >= 10) lp=0;
@@ -457,12 +455,14 @@ void ResetAll(){
 //==========================================================
 void getTime(){
     getNTPtime();
-      
+    delay(1000);
+    getNTPtime();
     h = String (DateTime.hour/10) + String (DateTime.hour%10);
     m = String (DateTime.minute/10) + String (DateTime.minute%10);
     s = String (DateTime.second/10 + String (DateTime.second%10));
 
     d = String (DateTime.day);
+
     y = String (DateTime.year);
      
     if (DateTime.month == 1) mon = "січня";
@@ -486,27 +486,25 @@ void getTime(){
     if (DateTime.wday == 7) wd = "Субота";
     if (DateTime.wday == 1) wd = "Неділя";
     
-   Brightnes();    
+    
+    Brightnes();
 }
 
 //***********************************************************************************************************
 void Brightnes(){
     // Яркость дисплея
-//v22***********************************************************************************************************
-    photocellReading = analogRead(photocellPin);
-    photocellReading = 1023 - photocellReading;
- //   delay(20);
-    LEDbrightness = map(photocellReading, 0, 1023, (config.textBrightnessD), (config.textBrightnessN));
-    P.setIntensity(LEDbrightness);
-//    Serial.print("Brightness  = ");
-   // Serial.println(LEDbrightness);
-    
-//v22***********************************************************************************************************
-
+    if (DateTime.hour >= config.TimeBrightnessD && DateTime.hour < config.TimeBrightnessN) P.setIntensity(config.textBrightnessD);
+    else P.setIntensity(config.textBrightnessN);
+    // проверка на COM порт
+    Serial.print("Brightness EEPROM Day. = "); Serial.println(config.textBrightnessD);Serial.print(" Start. = "); Serial.println(config.TimeBrightnessD);
+    Serial.print("Brightness EEPROM Night. = "); Serial.println(config.textBrightnessN);Serial.print(" Start. = "); Serial.println(config.TimeBrightnessN);
+    Serial.print("HOUR. = ");Serial.println(DateTime.hour);
+   
 }
+//***********************************************************************************************************
+
 
 void displayInfo(){
-  
     if (P.displayAnimate()){
     utf8rus(Text).toCharArray(buf, 256);
     P.displayText(buf, PA_CENTER, catalog[rnd].speed, 5000, catalog[rnd].effect, catalog[rnd].effect);   
@@ -515,7 +513,6 @@ void displayInfo(){
 }
 //==========================================================
 void displayInfo1(){
-    
     if (P.displayAnimate()){
     utf8rus(Text).toCharArray(buf, 256);
     P.displayText(buf, PA_CENTER, catalog[rnd].speed, 5000, catalog[rnd].effect, catalog[rnd].effect);   
@@ -524,7 +521,6 @@ void displayInfo1(){
 }
 //==========================================================
 void displayInfo2(){
-    
     if (P.displayAnimate()){
     utf8rus(Text).toCharArray(buf, 256);
     P.displayText(buf, PA_CENTER, catalog[rnd].speed, 5000, catalog[rnd].effect, catalog[rnd].effect);   
@@ -533,7 +529,6 @@ void displayInfo2(){
 }
 //==========================================================
 void displayInfo3(){
-    
     if (P.displayAnimate()){
     utf8rus(Text).toCharArray(buf, 256);
     P.displayText(buf, PA_CENTER, catalog[rnd].speed, 5000, catalog[rnd].effect, catalog[rnd].effect);   
@@ -543,7 +538,6 @@ void displayInfo3(){
 //==========================================================
 void scrollText(){
   if  (P.displayAnimate()){
-  
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 40);
   if (!P.displayAnimate()) disp = 3;
@@ -551,7 +545,6 @@ void scrollText(){
 }
 //==========================================================
 void scrollText1(){
-  
   if  (P.displayAnimate()){
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 40);
@@ -560,7 +553,6 @@ void scrollText1(){
 }
 //==========================================================
 void scrollText2(){
-  
   if  (P.displayAnimate()){
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 40);
@@ -569,7 +561,6 @@ void scrollText2(){
 }
 //==========================================================
 void scrollText3(){
-  
   if  (P.displayAnimate()){
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 40);
@@ -581,17 +572,18 @@ void scrollText3(){
 
 //==========================================================
 void scrollIP(){
-   Text = "Ваш IP: "+ipstring;
+  
+    Text = "Ваш IP: "+ipstring;
   if  (P.displayAnimate()){
-     utf8rus(Text).toCharArray(buf, 256);
+    getTime();
+  utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 60);
-    
+    getTime();
   }
 
 }
 //==========================================================
 void scrollConnect(){
- 
   Text = "Вiдсутне пiдключення до WIFI. Пiдключiтся до WiFi-Clock-v4  та наберiть у браузерi 192.168.4.1" ;
   if  (P.displayAnimate()){
   utf8rus(Text).toCharArray(buf, 256);
@@ -641,8 +633,6 @@ void getWeatherData()
     Serial.println("parseObject() failed");
     return;
   }
-    
- 
   //weatherMain = root["weather"]["main"].as<String>();
   weatherDescription = root["weather"]["description"].as<String>();
   weatherDescription.toLowerCase();
@@ -729,8 +719,6 @@ void getWeatherDataz()
     Serial.println("parseObject() failed");
     return;
   }
-    
-  
   lon = root ["coord"]["lon"];
   lat = root ["coord"]["lat"];
   
