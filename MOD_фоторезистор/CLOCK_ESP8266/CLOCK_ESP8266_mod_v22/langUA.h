@@ -42,5 +42,6 @@ String L_WD_Thursday = "Четвер";
 String L_WD_Friday = "П'ятниця";
 String L_WD_Saturday = "Субота";
 String L_WD_Sunday = "Неділя";
+String L_No_conn = "Вiдсутне пiдключення до WIFI. Під'єднайтися до WiFi-Clock-v4  та наберiть у браузерi 192.168.4.1";
 
 //  локализация HTMLок
