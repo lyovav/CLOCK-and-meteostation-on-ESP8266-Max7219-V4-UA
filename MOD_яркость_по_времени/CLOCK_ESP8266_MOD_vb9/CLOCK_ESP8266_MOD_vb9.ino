@@ -17,6 +17,15 @@
 #include <ArduinoJson.h>
 #include "Fonts.h"
 
+//Выбераем язык бегущей строки
+//-----------------------------------------------
+#include "langUA.h" // 
+//#include "langRU.h"
+//Выбераем язык погодных сообщений бегущей строки
+//String lang = "ru"; // 
+String lang = "ua";  
+//-----------------------------------------------
+
 #define  MAX_DEVICES 4 
 #define CLK_PIN     D5 // or SCK
 #define DATA_PIN    D7 // or MOSI
@@ -399,7 +408,7 @@ t.update();
    }
    
    if (disp ==2){
-   Text = " Сьогодні " + wd + " " + d + " " + mon + " " + y;
+   Text = L_today + " " + wd + " " + d + " " + mon + " " + y;
    scrollText();
    }
 
@@ -465,26 +474,26 @@ void getTime(){
 
     y = String (DateTime.year);
      
-    if (DateTime.month == 1) mon = "січня";
-    if (DateTime.month == 2) mon = "лютого";
-    if (DateTime.month == 3) mon = "березня";
-    if (DateTime.month == 4) mon = "квітня";
-    if (DateTime.month == 5) mon = "травня";
-    if (DateTime.month == 6) mon = "червня";
-    if (DateTime.month == 7) mon = "липня";
-    if (DateTime.month == 8) mon = "серпня";
-    if (DateTime.month == 9) mon = "вересня";
-    if (DateTime.month == 10) mon = "жовтня";
-    if (DateTime.month == 11) mon = "листопада";
-    if (DateTime.month == 12) mon = "грудня";
+    if (DateTime.month == 1) mon = L_mon_January;
+    if (DateTime.month == 2) mon = L_mon_February;
+    if (DateTime.month == 3) mon = L_mon_March;
+    if (DateTime.month == 4) mon = L_mon_April;
+    if (DateTime.month == 5) mon = L_mon_May;
+    if (DateTime.month == 6) mon = L_mon_June;
+    if (DateTime.month == 7) mon = L_mon_July;
+    if (DateTime.month == 8) mon = L_mon_August;
+    if (DateTime.month == 9) mon = L_mon_September;
+    if (DateTime.month == 10) mon = L_mon_October;
+    if (DateTime.month == 11) mon = L_mon_November;
+    if (DateTime.month == 12) mon = L_mon_December;
 
-    if (DateTime.wday == 2) wd = "Понеділок";
-    if (DateTime.wday == 3) wd = "Вівторок";
-    if (DateTime.wday == 4) wd = "Середа";
-    if (DateTime.wday == 5) wd = "Четвер";
-    if (DateTime.wday == 6) wd = "П'ятниця";
-    if (DateTime.wday == 7) wd = "Субота";
-    if (DateTime.wday == 1) wd = "Неділя";
+    if (DateTime.wday == 2) wd = L_WD_Monday;
+    if (DateTime.wday == 3) wd = L_WD_Tuesday;
+    if (DateTime.wday == 4) wd = L_WD_Wednesday;
+    if (DateTime.wday == 5) wd = L_WD_Thursday;
+    if (DateTime.wday == 6) wd = L_WD_Friday;
+    if (DateTime.wday == 7) wd = L_WD_Saturday;
+    if (DateTime.wday == 1) wd = L_WD_Sunday;
     
     
     Brightnes();
@@ -604,7 +613,7 @@ void getWeatherData()
 {
   Serial.print("connecting to "); Serial.println(weatherHost);
   if (client.connect(weatherHost, 80)) {
-    client.println(String("GET /data/2.5/weather?id=") + cityID + "&units=metric&appid=" + weatherKey + "&lang=ua" + "\r\n" +
+    client.println(String("GET /data/2.5/weather?id=") + cityID + "&units=metric&appid=" + weatherKey + "&lang="+ lang + "\r\n" +
                 "Host: " + weatherHost + "\r\nUser-Agent: ArduinoWiFi/1.1\r\n" +
                 "Connection: close\r\n\r\n");
   } else {
@@ -650,25 +659,25 @@ void getWeatherData()
 if (weatherDescription == "shower sleet") weatherDescription = "дощ зi снiгом";
 if (weatherDescription == "light shower snow") weatherDescription = "слабий снігопад";
   
-  weatherString = "На дворі зара " + String(temp,0)+ "\xB0"+"C ";
+  weatherString = L_outdoor + " " + String(temp,0)+ "\xB0"+"C ";
   weatherString += weatherDescription;
-  weatherString += " Вологість " + String(humidity) + "% ";
-  weatherString += "Атмосферний тиск " + String(pressureFIX,0) + " мм ";
-  weatherString += "Хмарність " + String(clouds) + "% ";
+  weatherString += " " + L_Humidity + " " + String(humidity) + "% ";
+  weatherString += L_Atmospheric + " " + String(pressureFIX,0) + " " + L_Atmospheric_mm + " ";
+  weatherString += L_Cloudiness + " " + String(clouds) + "% ";
 
 String windDegString;
 
-if (windDeg>=345 || windDeg<=22) windDegString = "Північний";
-if (windDeg>=23 && windDeg<=68) windDegString = "Північно-східний";
-if (windDeg>=69 && windDeg<=114) windDegString = "Східний";
-if (windDeg>=115 && windDeg<=160) windDegString = "Південно-східний";
-if (windDeg>=161 && windDeg<=206) windDegString = "Південний";
-if (windDeg>=207 && windDeg<=252) windDegString = "Південно-західний";
-if (windDeg>=253 && windDeg<=298) windDegString = "Західний";
-if (windDeg>=299 && windDeg<=344) windDegString = "Північно-західний";
+if (windDeg>=345 || windDeg<=22) windDegString = L_Wind_Northern;
+if (windDeg>=23 && windDeg<=68) windDegString = L_Wind_Northeastern;
+if (windDeg>=69 && windDeg<=114) windDegString = L_Wind_East;
+if (windDeg>=115 && windDeg<=160) windDegString = L_Wind_Southeastern;
+if (windDeg>=161 && windDeg<=206) windDegString = L_Wind_Southern;
+if (windDeg>=207 && windDeg<=252) windDegString = L_Wind_Southwestern;
+if (windDeg>=253 && windDeg<=298) windDegString = L_Wind_West;
+if (windDeg>=299 && windDeg<=344) windDegString = L_Wind_Northwestern;
 
 
-  weatherString += "Вітер " + windDegString + " " + String(windSpeed,1) + " м/с";
+  weatherString += L_Wind + " " + windDegString + " " + String(windSpeed,1) + " " + L_Windspeed;
 
 
 
@@ -688,7 +697,7 @@ void getWeatherDataz()
 {
   Serial.print("connecting to "); Serial.println(weatherHostz);
   if (client.connect(weatherHostz, 80)) {
-    client.println(String("GET /data/2.5/forecast/daily?id=") + cityID + "&units=metric&appid=" + weatherKey + "&lang=ua" + "&cnt=2" + "\r\n" +
+    client.println(String("GET /data/2.5/forecast/daily?id=") + cityID + "&units=metric&appid=" + weatherKey + "&lang=" + lang + "&cnt=2" + "\r\n" +
                 "Host: " + weatherHostz + "\r\nUser-Agent: ArduinoWiFi/1.1\r\n" +
                 "Connection: close\r\n\r\n");
   } else {
@@ -733,16 +742,16 @@ void getWeatherDataz()
   
   String windDegString;
 
-if (windDeg>=345 || windDeg<=22) windDegString = "Північний";
-if (wDeg>=23 && wDeg<=68) windDegString = "Північно-східний";
-if (wDeg>=69 && wDeg<=114) windDegString = "Східний";
-if (wDeg>=115 && wDeg<=160) windDegString = "Південно-східний";
-if (wDeg>=161 && wDeg<=206) windDegString = "Південний";
-if (wDeg>=207 && wDeg<=252) windDegString = "Південно-західний";
-if (wDeg>=253 && wDeg<=298) windDegString = "Західний";
-if (wDeg>=299 && wDeg<=344) windDegString = "Північно-західний";
+if (wDeg>=345 || wDeg<=22) windDegString = L_Wind_Northern;
+if (wDeg>=23 && wDeg<=68) windDegString = L_Wind_Northeastern;
+if (wDeg>=69 && wDeg<=114) windDegString = L_Wind_East;
+if (wDeg>=115 && wDeg<=160) windDegString = L_Wind_Southeastern;
+if (wDeg>=161 && wDeg<=206) windDegString = L_Wind_Southern;
+if (wDeg>=207 && wDeg<=252) windDegString = L_Wind_Southwestern;
+if (wDeg>=253 && wDeg<=298) windDegString = L_Wind_West;
+if (wDeg>=299 && wDeg<=344) windDegString = L_Wind_Northwestern;
 
-  weatherStringz1 = "Вітер " + windDegString + " " + String(wSpeed,1) + " м/с";
+  weatherStringz1 = L_Wind + " " + windDegString + " " + String(wSpeed,1) + " " + L_Windspeed;
 }
 // =======================================================================
   void tvoday(String line){
