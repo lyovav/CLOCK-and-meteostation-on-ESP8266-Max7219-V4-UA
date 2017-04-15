@@ -593,7 +593,7 @@ void scrollIP(){
 }
 //==========================================================
 void scrollConnect(){
-  Text = "Вiдсутне пiдключення до WIFI. Пiдключiтся до WiFi-Clock-v4  та наберiть у браузерi 192.168.4.1" ;
+  Text = L_No_conn;
   if  (P.displayAnimate()){
   utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 40);
