@@ -589,7 +589,7 @@ void scrollText3(){
 
 //==========================================================
 void scrollIP(){
-   Text = "Ваш IP: "+ipstring;
+   Text = L_YoursIP + " " + ipstring;
   if  (P.displayAnimate()){
      utf8rus(Text).toCharArray(buf, 256);
   P.displayScroll(buf, PA_LEFT, PA_SCROLL_LEFT, 60);
@@ -665,8 +665,8 @@ void getWeatherData()
   clouds = root["clouds"]["all"];
   String deg = String(char('~'+25));
   
-if (weatherDescription == "shower sleet") weatherDescription = "дощ зi снiгом";
-if (weatherDescription == "light shower snow") weatherDescription = "слабий снігопад";
+if (weatherDescription == "shower sleet") weatherDescription = L_weatherDescription_shower_sleet;
+if (weatherDescription == "light shower snow") weatherDescription = L_weatherDescription_light_shower_snow;
   
   weatherString = L_outdoor + " " + String(temp,0)+ "\xB0"+"C ";
   weatherString += weatherDescription;
